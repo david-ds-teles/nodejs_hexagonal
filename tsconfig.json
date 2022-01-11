@@ -10,6 +10,7 @@
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true
 	},
+	
 	"typeAcquisition": { "include": ["jest"] },
 	"exclude": ["./node_modules", "./dist", "./__tests__"]
 }
