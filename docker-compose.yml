@@ -1,0 +1,10 @@
+version: '3.0'
+services:
+  db:
+    image: mongo:5.0
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: hexdev
+      MONGO_INITDB_ROOT_PASSWORD: hexdev
+    ports:
+      - '27017:27017'

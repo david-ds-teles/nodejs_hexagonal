@@ -1,0 +1,10 @@
+apps:
+  - name: 'seed'
+    script: './dist/app.js'
+    out_file: './logs/seed.log'
+    watch: false
+    env_prd:
+      ENV: 'prd'
+      PORT: 5001
+      DB_NAME: 'node_hex'
+      DB_CONN: 'mongodb://hexdev:hexdev@localhost:27017'
