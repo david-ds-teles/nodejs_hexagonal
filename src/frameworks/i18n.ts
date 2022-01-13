@@ -18,6 +18,10 @@ i18n.configure({
 i18n.setLocale('en');
 
 export class I18nMessage implements IMessage {
+	setLocale(lang: string): void {
+		i18n.setLocale(lang);
+	}
+
 	msg(key: string, options?: any): string {
 		return i18n.__(key, options);
 	}

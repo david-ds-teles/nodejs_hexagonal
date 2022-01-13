@@ -2,8 +2,12 @@ import { ICommand } from '../../adapters/icommand';
 import { IMessage } from '../../adapters/imessage';
 import { IAccountService } from '../core/services/iaccount.service';
 
+type exec = {
+	(args: string[]): void;
+};
+
 export class AccountCmd implements ICommand {
-	private cmds: Map<string, (args: string[]) => {}> = new Map();
+	private cmds: Map<string, exec> = new Map();
 
 	constructor(private readonly accountService: IAccountService, private readonly message: IMessage) {
 		this.cmds.set('create-account', this.create);
@@ -18,7 +22,13 @@ export class AccountCmd implements ICommand {
 			throw Error(msg);
 		}
 
-		this.cmds.get(command)!(args);
+		const execFunc = this.cmds.get(command);
+		if (execFunc != null) {
+			execFunc(args);
+		} else {
+			const msg = this.message.msg('command_provided_for_args_not_found', { cmd: command, arg: args[0] });
+			throw Error(msg);
+		}
 	}
 
 	create = async (args: string[]) => {
