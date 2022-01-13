@@ -18,12 +18,11 @@ i18n.configure({
 i18n.setLocale('en');
 
 export class I18nMessage implements IMessage {
-	msg(key: string, options?:any): string {
+	msg(key: string, options?: any): string {
 		return i18n.__(key, options);
 	}
 
 	plural(key: string, qtd: number): string {
 		return i18n.__n(key, qtd);
 	}
-
 }

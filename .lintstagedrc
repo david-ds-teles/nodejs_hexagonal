@@ -1,8 +1,8 @@
 {
 	"src/*.ts": [
-		"prettier --write --ignore-unknown"
+		"prettier --write src/** --ignore-unknown"
 	],
 	"__tests__/*": [
-		"prettier --write --ignore-unknown"
+		"prettier --write src/** --ignore-unknown"
 	]
 }

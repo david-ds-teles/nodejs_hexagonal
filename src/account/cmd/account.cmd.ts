@@ -13,8 +13,8 @@ export class AccountCmd implements ICommand {
 		console.log('execute commands', args);
 
 		const command = args[1];
-		if (!this.cmds.has(command)){
-			const msg = this.message.msg('command_provided_for_args_not_found', {cmd: command, arg: args[0]});
+		if (!this.cmds.has(command)) {
+			const msg = this.message.msg('command_provided_for_args_not_found', { cmd: command, arg: args[0] });
 			throw Error(msg);
 		}
 
@@ -48,5 +48,5 @@ export class AccountCmd implements ICommand {
 			console.error('failed to create user with error', err);
 			process.exit(1);
 		}
-	}
+	};
 }

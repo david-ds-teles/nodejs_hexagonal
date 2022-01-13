@@ -4,11 +4,7 @@ import { Account } from '../entities/account';
 import { IAccountService } from './iaccount.service';
 
 export class AccountService implements IAccountService {
-
-	constructor(
-		private readonly repository: IAccountRepository, 
-		private readonly message:IMessage
-	) {}
+	constructor(private readonly repository: IAccountRepository, private readonly message: IMessage) {}
 
 	async create(account: Account): Promise<Account> {
 		console.log('AccountService.create', account);

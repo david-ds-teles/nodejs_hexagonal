@@ -9,7 +9,7 @@ const PORT = process.env.PORT;
 
 export class ExpressAPI<DB> {
 	private i18nMessage: IMessage;
-	
+
 	constructor(readonly dbDriver: IDBDriver<DB>) {
 		this.i18nMessage = new I18nMessage();
 	}
