@@ -1,7 +1,7 @@
-import { IAccountRepository } from './iaccount.repository';
+import { IAccountRepository } from '../core/repository/iaccount.repository';
 import { Account } from '../core/entities/account';
 import { MongoCollections } from '../../types/mongo.db.collections.type';
-import { IDBDriver } from '../../adapters/idb.driver';
+import { IDBDriver } from '../../ports/idb.driver';
 import * as mongoDB from 'mongodb';
 
 export class MongoDBAccountRepository implements IAccountRepository {

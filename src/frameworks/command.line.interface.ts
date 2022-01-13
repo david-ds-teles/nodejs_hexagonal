@@ -1,8 +1,8 @@
 import { accountCmd } from '../account';
-import { ICommand } from '../adapters/icommand';
-import { IDBDriver } from '../adapters/idb.driver';
-import { IMessage } from '../adapters/imessage';
-import { I18nMessage } from './i18n';
+import { ICommand } from '../account/cmd/icommand';
+import { IDBDriver } from '../ports/idb.driver';
+import { IMessage } from '../account/utils/imessage';
+import { I18nMessage } from './i18n.message';
 
 export class CommandLineInterface<DB> {
 	private commands: Map<string, ICommand> = new Map();

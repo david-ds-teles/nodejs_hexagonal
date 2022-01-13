@@ -1,5 +1,5 @@
-import { ICommand } from '../../adapters/icommand';
-import { IMessage } from '../../adapters/imessage';
+import { ICommand } from './icommand';
+import { IMessage } from '../utils/imessage';
 import { IAccountService } from '../core/services/iaccount.service';
 
 type exec = {

@@ -1,8 +1,9 @@
 import express, { Request, Response } from 'express';
-import { accountRouter } from '../account';
-import { IDBDriver } from '../adapters/idb.driver';
-import { IMessage } from '../adapters/imessage';
-import { I18nMessage } from './i18n';
+import { accountAPI } from '../account';
+import { IDBDriver } from '../ports/idb.driver';
+import { IMessage } from '../account/utils/imessage';
+import { I18nMessage } from './i18n.message';
+import { AccountAPI } from '../account/api/account.api';
 
 const app = express();
 const PORT = process.env.PORT;
@@ -21,7 +22,12 @@ export class ExpressAPI<DB> {
 	}
 
 	private configRouters() {
-		app.use('/account', accountRouter(this.dbDriver, this.i18nMessage));
+		const api: AccountAPI = accountAPI(this.dbDriver, this.i18nMessage);
+		const router: express.Router = express.Router();
+
+		router.use('/', api.create);
+		
+		app.use('/account', router);
 	}
 
 	private l18nMiddleware = (request: Request, response: Response, next: () => void): void => {

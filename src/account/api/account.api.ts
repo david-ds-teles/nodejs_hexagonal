@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import {  Request, Response } from 'express';
 import { IAccountService } from '../core/services/iaccount.service';
 
 export class AccountAPI {

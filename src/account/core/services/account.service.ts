@@ -1,5 +1,5 @@
-import { IMessage } from '../../../adapters/imessage';
-import { IAccountRepository } from '../../db/iaccount.repository';
+import { IMessage } from '../../utils/imessage';
+import { IAccountRepository } from '../repository/iaccount.repository';
 import { Account } from '../entities/account';
 import { IAccountService } from './iaccount.service';
 

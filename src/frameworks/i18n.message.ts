@@ -6,7 +6,7 @@
  */
 import { I18n } from 'i18n';
 import path from 'path';
-import { IMessage } from '../adapters/imessage';
+import { IMessage } from '../account/utils/imessage';
 
 export const i18n = new I18n();
 

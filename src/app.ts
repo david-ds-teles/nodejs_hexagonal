@@ -1,7 +1,7 @@
-import { IDBDriver } from './adapters/idb.driver';
+import { IDBDriver } from './ports/idb.driver';
 import { MongoCollections } from './types/mongo.db.collections.type';
 import { ExpressAPI } from './frameworks/express.api';
-import { MongoDB } from './frameworks/mongodb';
+import { MongoDB } from './frameworks/mongodb.driver';
 (async () => {
 	console.log('starting nodejs hexagonal example');
 	const dbDriver: IDBDriver<MongoCollections> = new MongoDB();

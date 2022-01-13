@@ -1,13 +1,12 @@
-import express, { Router } from 'express';
-import { ICommand } from '../adapters/icommand';
-import { IDBDriver } from '../adapters/idb.driver';
-import { IMessage } from '../adapters/imessage';
+import { IDBDriver } from '../ports/idb.driver';
 import { AccountAPI } from './api/account.api';
 import { AccountCmd } from './cmd/account.cmd';
+import { ICommand } from './cmd/icommand';
+import { IAccountRepository } from './core/repository/iaccount.repository';
 import { AccountService } from './core/services/account.service';
 import { IAccountService } from './core/services/iaccount.service';
-import { IAccountRepository } from './db/iaccount.repository';
 import { MongoDBAccountRepository } from './db/mongodb.account.repository';
+import { IMessage } from './utils/imessage';
 
 export const accountCmd = <DB>(dbDriver: IDBDriver<DB>, message: IMessage): ICommand => {
 	const accountRepository: IAccountRepository = new MongoDBAccountRepository(dbDriver);
@@ -17,13 +16,9 @@ export const accountCmd = <DB>(dbDriver: IDBDriver<DB>, message: IMessage): ICom
 	return cmd;
 };
 
-export const accountRouter = <DB>(dbDriver: IDBDriver<DB>, message: IMessage): Router => {
+export const accountAPI = <DB>(dbDriver: IDBDriver<DB>, message: IMessage): AccountAPI => {
 	const accountRepository: IAccountRepository = new MongoDBAccountRepository(dbDriver);
 	const accountService: IAccountService = new AccountService(accountRepository, message);
-
-	const router: express.Router = express.Router();
 	const api: AccountAPI = new AccountAPI(accountService);
-	router.use('/', api.create);
-
-	return router;
+	return api;
 };

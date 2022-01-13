@@ -1,5 +1,5 @@
 import * as mongoDB from 'mongodb';
-import { IDBDriver } from '../adapters/idb.driver';
+import { IDBDriver } from '../ports/idb.driver';
 import { MongoCollections } from '../types/mongo.db.collections.type';
 
 export class MongoDB implements IDBDriver<MongoCollections> {

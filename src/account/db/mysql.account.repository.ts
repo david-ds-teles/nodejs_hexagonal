@@ -1,5 +1,5 @@
 import { Account } from '../core/entities/account';
-import { IAccountRepository } from './iaccount.repository';
+import { IAccountRepository } from '../core/repository/iaccount.repository';
 
 export class MySqlAccountRepository implements IAccountRepository {
 	async save(account: Account): Promise<string> {
