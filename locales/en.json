@@ -1,0 +1,8 @@
+{
+	"command_args_not_provided": "you need provide a command",
+	"command_provided_not_found": "the provided command {{cmd}} not found",
+	"command_provided_for_args_not_found": "the command {{cmd}} provided for {{arg}} doesn't exists",
+	"account_create_data_param_not_found": "data param not informed. You need provide the parameter in json valid format",
+
+	"account_creation_failed": "account creation failed"
+}

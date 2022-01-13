@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 import { ICommand } from '../adapters/icommand';
 import { IDBDriver } from '../adapters/idb.driver';
+import { IMessage } from '../adapters/imessage';
 import { AccountAPI } from './api/account.api';
 import { AccountCmd } from './cmd/account.cmd';
 import { AccountService } from './core/services/account.service';
@@ -8,17 +9,17 @@ import { IAccountService } from './core/services/iaccount.service';
 import { IAccountRepository } from './db/iaccount.repository';
 import { MongoDBAccountRepository } from './db/mongodb.account.repository';
 
-export const accountCmd = <DB>(dbDriver: IDBDriver<DB>): ICommand => {
+export const accountCmd = <DB>(dbDriver: IDBDriver<DB>, message: IMessage): ICommand => {
 	const accountRepository: IAccountRepository = new MongoDBAccountRepository(dbDriver);
-	const accountService: IAccountService = new AccountService(accountRepository);
+	const accountService: IAccountService = new AccountService(accountRepository, message);
 
-	const cmd: ICommand = new AccountCmd(accountService);
+	const cmd: ICommand = new AccountCmd(accountService, message);
 	return cmd;
 };
 
-export const accountRouter = <DB>(dbDriver: IDBDriver<DB>): Router => {
+export const accountRouter = <DB>(dbDriver: IDBDriver<DB>, message: IMessage): Router => {
 	const accountRepository: IAccountRepository = new MongoDBAccountRepository(dbDriver);
-	const accountService: IAccountService = new AccountService(accountRepository);
+	const accountService: IAccountService = new AccountService(accountRepository, message);
 
 	const router: express.Router = express.Router();
 	const api: AccountAPI = new AccountAPI(accountService);

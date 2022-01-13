@@ -1,15 +1,15 @@
 {
-	"name": "seed",
+	"name": "node_hex",
 	"version": "1.0.0",
-	"description": "a simple node seed project with typescript",
+	"description": "a simple node hexagonal project with typescript",
 	"author": "David S Teles",
 	"keywords": [
 		"typescript",
 		"node",
-		"seed",
-		"hexagonal"
+		"hexagonal",
+		"architecture"
 	],
-	"license": "ISC",
+	"license": "MIT",
 	"main": "app.ts",
 	"scripts": {
 		"build": "tslint 'src/**/*.ts' && tsc --alwaysStrict",
@@ -28,11 +28,13 @@
 	},
 	"dependencies": {
 		"express": "^4.17.2",
+		"i18n": "^0.13.4",
 		"mongodb": "^4.3.0",
 		"pm2": "^5.1.2"
 	},
 	"devDependencies": {
 		"@types/express": "^4.17.13",
+		"@types/i18n": "^0.13.2",
 		"@types/jest": "~27.4.0",
 		"@types/node": "^17.0.8",
 		"husky": "^7.0.4",
