@@ -10,10 +10,8 @@ export class AccountAPI {
 		try {
 			const account = await this.accountService.create(req.body);
 			rsp.status(201).send(account);
-		} catch (err: any) {
-			rsp.status(500).send({
-				message: err.message,
-			});
+		} catch (err) {
+			rsp.status(500).send(req.message.msg('account_creation_failed'));
 		}
 	};
 }

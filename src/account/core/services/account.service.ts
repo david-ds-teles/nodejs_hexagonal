@@ -14,15 +14,17 @@ export class AccountService implements IAccountService {
 			return account;
 		} catch (err) {
 			console.error(err);
-			throw Error(this.message.msg('account_creation_failed'));
+			throw err;
 		}
 	}
 
 	update(account: Account): void {
+		console.log(account);
 		throw new Error('Method not implemented.');
 	}
 
 	fetchByEmail(email: string): Account {
+		console.log(email);
 		throw new Error('Method not implemented.');
 	}
 }

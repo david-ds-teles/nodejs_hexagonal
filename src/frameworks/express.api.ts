@@ -1,8 +1,8 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { accountRouter } from '../account';
 import { IDBDriver } from '../adapters/idb.driver';
 import { IMessage } from '../adapters/imessage';
-import { i18n, I18nMessage } from './i18n';
+import { I18nMessage } from './i18n';
 
 const app = express();
 const PORT = process.env.PORT;
@@ -17,12 +17,27 @@ export class ExpressAPI<DB> {
 	private configMiddlewared() {
 		app.use(express.json());
 		app.use(express.urlencoded({ extended: true }));
-		app.use(i18n.init);
+		app.use(this.l18nMiddleware);
 	}
 
 	private configRouters() {
 		app.use('/account', accountRouter(this.dbDriver, this.i18nMessage));
 	}
+
+	private l18nMiddleware = (request: Request, response: Response, next: () => void): void => {
+		request.message = this.i18nMessage;
+		let lang = 'en';
+
+		if (request.headers['accept-language']) {
+			lang = request.headers['accept-language'];
+		} else if (request.query['lang']) {
+			lang = request.query['lang'] + '';
+		}
+
+		this.i18nMessage.setLocale(lang);
+
+		next();
+	};
 
 	start(): void {
 		console.log('starting express api');
