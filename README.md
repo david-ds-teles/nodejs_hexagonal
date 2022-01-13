@@ -6,7 +6,7 @@
 
 **email**: david.ds.teles@gmail.com
 
-Hello, my name is David and I'm a software engineer, you can find me on [Linkedin](https://www.linkedin.com/in/david-teles/). Feel free to send me a message.
+Hello, my name is David Teles and I'm a software engineer. You can find me on [Linkedin](https://www.linkedin.com/in/david-teles/). Feel free to send me a message.
 
 ## About
 
@@ -18,6 +18,7 @@ You'll find here:
 * 2 tipes of use to illustrate how decouped things can be powerful. An api and a CLI
 * api with express
 * simple CLI to execute the same account create than with API but with different context.
+* i18n
 * tslint
 * prettier
 * nodemon (for dev only)
@@ -27,18 +28,20 @@ You'll find here:
 
 ## How to start
 
-#### development
+The first thing you need to do is install using the command
 
-express api
 ```
 npm install
-npm run dev
-curl localhost:8080
+npm prepare
 ```
 
-CLI interface
+This will install the dependencies and config husk and its git hooks to execute lint, prettier and test during git commands.
+
+#### development
+
 ```
-npm run cli-dev account create-account '{\""email\"":\""david.ds.teles@gmail.com\""}'
+npm run dev
+curl localhost:8080
 ```
 
 #### test
@@ -49,23 +52,10 @@ npm run test
 
 #### production
 
-express api
 ```
-npm install
 npm run build
 npm run prd
 ```
-
-The build command runs the tslint automatic. If you want to overrite your files
-with the prettier rules created for this seed project you can run
-
-```
-npm run prettier
-```
-
-Notice that **prettier** command **will override your files** and replace things
-with the defined rules. 
-Feel free to change those rules for your own code style editing *tslint.json*.
 
 ### environment
 

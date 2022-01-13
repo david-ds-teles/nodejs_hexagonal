@@ -1,10 +1,11 @@
 import { ICommand } from '../../adapters/icommand';
+import { IMessage } from '../../adapters/imessage';
 import { IAccountService } from '../core/services/iaccount.service';
 
 export class AccountCmd implements ICommand {
 	private cmds: Map<string, (args: string[]) => {}> = new Map();
 
-	constructor(private readonly accountService: IAccountService) {
+	constructor(private readonly accountService: IAccountService, private readonly message: IMessage) {
 		this.cmds.set('create-account', this.create);
 	}
 
@@ -12,7 +13,10 @@ export class AccountCmd implements ICommand {
 		console.log('execute commands', args);
 
 		const command = args[1];
-		if (!this.cmds.has(command)) throw Error(`the command ${command} provided for ${args[0]} doesn't exists`);
+		if (!this.cmds.has(command)) {
+			const msg = this.message.msg('command_provided_for_args_not_found', { cmd: command, arg: args[0] });
+			throw Error(msg);
+		}
 
 		this.cmds.get(command)!(args);
 	}
@@ -21,7 +25,10 @@ export class AccountCmd implements ICommand {
 		const data = args[2];
 		console.log('starting create account cmd with', data);
 
-		if (data == null) throw Error(`data param not informed. You need provide the parameter in json valid format`);
+		if (data == null) {
+			const msg = this.message.msg('account_create_data_param_not_found');
+			throw Error(msg);
+		}
 
 		let accountJSON;
 
@@ -29,7 +36,7 @@ export class AccountCmd implements ICommand {
 			accountJSON = JSON.parse(data);
 			console.log(accountJSON);
 		} catch (err) {
-			console.error('failed to parse the json data');
+			console.error('failed to parse the json data', err);
 			process.exit(1);
 		}
 
@@ -41,5 +48,5 @@ export class AccountCmd implements ICommand {
 			console.error('failed to create user with error', err);
 			process.exit(1);
 		}
-	}
+	};
 }

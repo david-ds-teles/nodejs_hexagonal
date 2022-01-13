@@ -25,6 +25,7 @@ export class MongoDB implements IDBDriver<MongoCollections> {
 		try {
 			this.client = new mongoDB.MongoClient(process.env.DB_CONN || 'localhost');
 			await this.client.connect();
+			await this.client.db('admin').command({ ping: 1 });
 			this.db = this.client.db(process.env.DB_NAME);
 			this.configCollections();
 

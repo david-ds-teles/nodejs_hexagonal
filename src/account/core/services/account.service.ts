@@ -1,9 +1,10 @@
+import { IMessage } from '../../../adapters/imessage';
 import { IAccountRepository } from '../../db/iaccount.repository';
 import { Account } from '../entities/account';
 import { IAccountService } from './iaccount.service';
 
 export class AccountService implements IAccountService {
-	constructor(private readonly repository: IAccountRepository) {}
+	constructor(private readonly repository: IAccountRepository, private readonly message: IMessage) {}
 
 	async create(account: Account): Promise<Account> {
 		console.log('AccountService.create', account);
@@ -12,8 +13,8 @@ export class AccountService implements IAccountService {
 			await this.repository.save(account);
 			return account;
 		} catch (err) {
-			console.error('account creation failed with error', err);
-			throw Error('account creation failed');
+			console.error(err);
+			throw Error(this.message.msg('account_creation_failed'));
 		}
 	}
 
