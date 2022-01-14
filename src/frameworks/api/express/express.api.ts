@@ -23,7 +23,7 @@ export class ExpressAPI<DB> {
 	}
 
 	private l18nMiddleware = (request: Request, _: Response, next: () => void): void => {
-		l18nMiddleware(this.i18nMessage, request, _, next);
+		l18nMiddleware(this.i18nMessage, request, next);
 	};
 
 	private configRouters() {

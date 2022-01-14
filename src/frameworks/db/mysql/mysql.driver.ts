@@ -2,9 +2,6 @@ import { IDBDriver } from '../../../commons/idb.driver';
 
 export class MySql implements IDBDriver<any> {
 
-	constructor() {
-	}
-
 	get conn(): any {
 		return null;
 	}
@@ -22,7 +19,7 @@ export class MySql implements IDBDriver<any> {
 
 	async close() {
 		try {
-			
+			console.log('closing');
 		} catch (err) {
 			console.error('failed to close db connection with error', err);
 			process.exit(1);

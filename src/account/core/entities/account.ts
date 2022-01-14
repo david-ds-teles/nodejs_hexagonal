@@ -13,16 +13,13 @@ export class Account {
 		const emailReg = new RegExp(/^.+@.+\.com/g);
 		const forbidenProviderReg = new RegExp(/^.+@foo\.com/g);
 
-		if (this.email == null) 
-			throw new InvalidDataError('invalid_email', `email null`);
+		if (this.email == null) throw new InvalidDataError('invalid_email', 'email null');
 
 		let result = emailReg.exec(this.email);
-		if(result == null) 
-			throw new InvalidDataError('invalid_email', `email provided ${this.email}`);
+		if (result == null) throw new InvalidDataError('invalid_email', `email provided ${this.email}`);
 
 		result = forbidenProviderReg.exec(this.email);
 
-		if (result != null) 
-			throw new InvalidDataError('account_email_provider_not_supported', this.email);
+		if (result != null) throw new InvalidDataError('account_email_provider_not_supported', this.email);
 	}
 }

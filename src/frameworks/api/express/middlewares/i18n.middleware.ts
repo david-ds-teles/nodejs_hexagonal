@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { IMessage } from '../../../../commons/imessage';
 
-export const l18nMiddleware = (i18n: IMessage, request: Request, _: Response, next: () => void): void => {
+export const l18nMiddleware = (i18n: IMessage, request: Request, next: () => void): void => {
 	request.message = i18n;
 	let lang = 'en';
 
