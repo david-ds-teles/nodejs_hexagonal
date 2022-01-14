@@ -1,9 +1,10 @@
 {
+	"internal_error": "tivemos um erro interno ao executar a operação",
 	"command_args_not_provided": "você precisa informar o comando",
 	"command_provided_not_found": "comando {{cmd}} não encontrado",
 	"command_provided_for_args_not_found": "o comando {{cmd}} com o argumento {{arg}} não existe",
 	"account_create_data_param_not_found": "o parâmetro \"data\" não informado. Você precisa informar o parametro no formato json válido.",
-
-	"account_creation_failed": "falha na criação da conta"
-
+	"account_creation_failed": "falha na criação da conta",
+	"account_email_provider_not_supported": "o email informado não é suportado pela plataforma",
+	"invalid_email": "o email informado é inválido"
 }

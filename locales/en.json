@@ -1,8 +1,13 @@
 {
+	"internal_error": "we had an internal error trying to execute the operation",
+
 	"command_args_not_provided": "you need provide a command",
 	"command_provided_not_found": "the provided command {{cmd}} not found",
 	"command_provided_for_args_not_found": "the command {{cmd}} provided for {{arg}} doesn't exists",
+	
 	"account_create_data_param_not_found": "data param not informed. You need provide the parameter in json valid format",
+	"account_creation_failed": "account creation failed",
+	"account_email_provider_not_supported": "the provided email is not supported",
 
-	"account_creation_failed": "account creation failed"
+	"invalid_email": "the provided email is invalid"
 }

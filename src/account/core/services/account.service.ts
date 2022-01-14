@@ -1,5 +1,5 @@
-import { IMessage } from '../../utils/imessage';
-import { IAccountRepository } from '../repository/iaccount.repository';
+import { IMessage } from '../../../commons/imessage';
+import { IAccountRepository } from '../../repository/iaccount.repository';
 import { Account } from '../entities/account';
 import { IAccountService } from './iaccount.service';
 
@@ -10,10 +10,11 @@ export class AccountService implements IAccountService {
 		console.log('AccountService.create', account);
 
 		try {
+			account.checkEmailProvider();
 			await this.repository.save(account);
 			return account;
 		} catch (err) {
-			console.error(err);
+			console.error('error trying to create an account', err);
 			throw err;
 		}
 	}

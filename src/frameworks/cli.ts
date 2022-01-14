@@ -1,8 +1,12 @@
-import { accountCmd } from '../account';
 import { ICommand } from '../account/cmd/icommand';
-import { IDBDriver } from '../ports/idb.driver';
-import { IMessage } from '../account/utils/imessage';
+import { IDBDriver } from '../commons/idb.driver';
+import { IMessage } from '../commons/imessage';
 import { I18nMessage } from './i18n.message';
+import { IAccountRepository } from '../account/repository/iaccount.repository';
+import { MongoDBAccountRepository } from './db/mongodb/mongodb.account.repository';
+import { IAccountService } from '../account/core/services/iaccount.service';
+import { AccountService } from '../account/core/services/account.service';
+import { AccountCmd } from '../account/cmd/account.cmd';
 
 export class CommandLineInterface<DB> {
 	private commands: Map<string, ICommand> = new Map();
@@ -10,7 +14,10 @@ export class CommandLineInterface<DB> {
 
 	constructor(db: IDBDriver<DB>) {
 		this.i18nMessage = new I18nMessage();
-		this.commands.set('account', accountCmd(db, this.i18nMessage));
+		const accountRepository: IAccountRepository = new MongoDBAccountRepository(db);
+		const accountService: IAccountService = new AccountService(accountRepository, this.i18nMessage);
+		const cmd: ICommand = new AccountCmd(accountService, this.i18nMessage);
+		this.commands.set('account', cmd);
 	}
 
 	start() {

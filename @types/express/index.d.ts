@@ -1,4 +1,4 @@
-import { IMessage } from "../../src/account/utils/imessage";
+import { IMessage } from "../../src/commons/imessage";
 
 declare global{
     namespace Express {

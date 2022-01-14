@@ -1,6 +1,7 @@
 import { ICommand } from './icommand';
-import { IMessage } from '../utils/imessage';
+import { IMessage } from '../../commons/imessage';
 import { IAccountService } from '../core/services/iaccount.service';
+import { Account } from '../core/entities/account';
 
 type exec = {
 	(args: string[]): void;
@@ -51,7 +52,7 @@ export class AccountCmd implements ICommand {
 		}
 
 		try {
-			const accountCreated = await this.accountService.create(accountJSON);
+			const accountCreated = await this.accountService.create(new Account(accountJSON.email));
 			console.log('account created', accountCreated);
 			process.exit(0);
 		} catch (err) {
