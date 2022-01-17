@@ -85,9 +85,14 @@ docker compose up
 
 ## Development
 
+CLI mode to illustrate how the core is independent of the port.
+```
+npm run cli-dev account create-account '{\""email\"":\""david.ds.teles@gmail.com\""}'
+```
+
 ```
 npm run dev
-curl localhost:8080
+curl localhost:8080/account -XPOST -i -H "content-type: application/json" -d "{\"email\":\"david.ds.teles@gmail.com\"}"
 ```
 
 ## test
@@ -101,6 +106,7 @@ npm run test
 ```
 npm run build
 npm run prd
+curl localhost:8080/account -XPOST -i -H "content-type: application/json" -d "{\"email\":\"david.ds.teles@gmail.com\"}"
 ```
 
 # Environment
