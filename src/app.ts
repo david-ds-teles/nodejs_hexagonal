@@ -1,5 +1,5 @@
 import { IDBDriver } from './commons/idb.driver';
-import { ExpressAPI } from './frameworks/api/express/express.api';
+import { FastifyAPI } from './frameworks/api/fastify/fastify.api';
 import { MySql } from './frameworks/db/mysql/mysql.driver';
 (async () => {
 	console.log('starting nodejs hexagonal example');
@@ -7,6 +7,7 @@ import { MySql } from './frameworks/db/mysql/mysql.driver';
 	const dbDriver: IDBDriver = new MySql();
 	await dbDriver.connect();
 
-	const api: ExpressAPI = new ExpressAPI(dbDriver.repositories);
+	const api: FastifyAPI = new FastifyAPI(dbDriver.repositories);
+	// const api: ExpressAPI = new ExpressAPI(dbDriver.repositories);
 	api.start();
 })();
