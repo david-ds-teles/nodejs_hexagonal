@@ -1,14 +1,12 @@
-import { IAccountRepository } from '../../../account/repository/iaccount.repository';
-import { Account } from '../../../account/core/entities/account';
-import { MongoCollections } from '../../../types/mongo.db.collections.type';
-import { IDBDriver } from '../../../commons/idb.driver';
 import * as mongoDB from 'mongodb';
+import { Account } from '../../../account/core/entities/account';
+import { IAccountRepository } from '../../../account/repository/iaccount.repository';
 
 export class MongoDBAccountRepository implements IAccountRepository {
 	private accountCollection: mongoDB.Collection;
 
-	constructor(db: IDBDriver<MongoCollections>) {
-		this.accountCollection = db.conn.account!;
+	constructor(collection: mongoDB.Collection) {
+		this.accountCollection = collection;
 	}
 
 	async save(account: Account): Promise<string> {

@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from 'express';
-import { IDBDriver } from '../../../commons/idb.driver';
+import { Repositories } from '../../../commons/idb.driver';
 import { IMessage } from '../../../commons/imessage';
 import { I18nMessage } from '../../i18n.message';
 import { accountRouter } from './account/account.api.router';
@@ -9,10 +9,10 @@ import { l18nMiddleware } from './middlewares/i18n.middleware';
 const app = express();
 const PORT = process.env.PORT;
 
-export class ExpressAPI<DB> {
+export class ExpressAPI {
 	private i18nMessage: IMessage;
 
-	constructor(readonly dbDriver: IDBDriver<DB>) {
+	constructor(readonly repositories: Repositories) {
 		this.i18nMessage = new I18nMessage();
 	}
 
@@ -27,7 +27,7 @@ export class ExpressAPI<DB> {
 	};
 
 	private configRouters() {
-		const account: Router = accountRouter(this.dbDriver, this.i18nMessage);
+		const account: Router = accountRouter(this.repositories.account, this.i18nMessage);
 		app.use('/account', account);
 	}
 

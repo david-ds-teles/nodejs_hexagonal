@@ -1,5 +1,11 @@
-export interface IDBDriver<T> {
+import { IAccountRepository } from '../account/repository/iaccount.repository';
+
+export interface IDBDriver {
 	connect(): void;
 	close(): void;
-	get conn(): T;
+	get repositories(): Repositories;
 }
+
+export type Repositories = {
+	account: IAccountRepository;
+};

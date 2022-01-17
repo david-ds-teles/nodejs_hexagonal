@@ -1,22 +1,13 @@
 import * as mongoDB from 'mongodb';
-import { IDBDriver } from '../../../commons/idb.driver';
-import { MongoCollections } from '../../../types/mongo.db.collections.type';
+import { IDBDriver, Repositories } from '../../../commons/idb.driver';
+import { MongoDBAccountRepository } from './mongodb.account.repository';
 
-export class MongoDB implements IDBDriver<MongoCollections> {
-	private db!: mongoDB.Db;
+export class MongoDB implements IDBDriver {
 	private client!: mongoDB.MongoClient;
-	readonly collections: MongoCollections;
+	private repo!: Repositories;
 
-	constructor() {
-		this.collections = {};
-	}
-
-	get conn(): MongoCollections {
-		return this.collections;
-	}
-
-	private configCollections(): void {
-		this.collections.account = this.db.collection('account');
+	get repositories(): Repositories {
+		return this.repo;
 	}
 
 	async connect() {
@@ -26,8 +17,11 @@ export class MongoDB implements IDBDriver<MongoCollections> {
 			this.client = new mongoDB.MongoClient(process.env.DB_CONN || 'localhost');
 			await this.client.connect();
 			await this.client.db('admin').command({ ping: 1 });
-			this.db = this.client.db(process.env.DB_NAME);
-			this.configCollections();
+			const db = this.client.db(process.env.DB_NAME);
+
+			this.repo = {
+				account: new MongoDBAccountRepository(db.collection('account')),
+			};
 
 			console.log('mongodb connection successfully initiated');
 		} catch (err) {
