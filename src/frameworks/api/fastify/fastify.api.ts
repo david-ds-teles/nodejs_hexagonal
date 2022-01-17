@@ -9,7 +9,7 @@ import { fastifyAccountAPI } from './account/account.api.router';
 const PORT = process.env.PORT;
 const app = fastify();
 
-export class FastifyAPI implements IApi{
+export class FastifyAPI implements IApi {
 	private i18n: IMessage;
 
 	constructor(readonly repositories: Repositories) {

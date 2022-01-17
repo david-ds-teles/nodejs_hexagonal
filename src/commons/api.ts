@@ -1,3 +1,3 @@
 export interface IApi {
-    start(): void;
+	start(): void;
 }
