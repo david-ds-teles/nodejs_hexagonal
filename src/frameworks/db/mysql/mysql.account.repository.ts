@@ -63,5 +63,4 @@ export class MySqlAccountRepository implements IAccountRepository {
 
 		return promisse;
 	}
-
 }

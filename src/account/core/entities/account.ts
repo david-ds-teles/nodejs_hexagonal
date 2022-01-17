@@ -9,8 +9,8 @@ export class Account {
 		this._id = id;
 	}
 
-	idIsValid(){
-		if(this._id == null) throw new InvalidDataError('invalid_id', '_id provider is invalid');
+	idIsValid() {
+		if (this._id == null) throw new InvalidDataError('invalid_id', '_id provider is invalid');
 	}
 
 	checkEmailProvider() {
