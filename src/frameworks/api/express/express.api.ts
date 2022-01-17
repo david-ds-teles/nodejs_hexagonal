@@ -1,10 +1,9 @@
 import express, { Request, Response, Router } from 'express';
+import { InvalidDataError } from '../../../commons/errors';
 import { Repositories } from '../../../commons/idb.driver';
 import { IMessage } from '../../../commons/imessage';
 import { I18nMessage } from '../../i18n.message';
-import { accountRouter } from './account/account.api.router';
-import { errorHandler } from './middlewares/error.middleware';
-import { l18nMiddleware } from './middlewares/i18n.middleware';
+import { expressAccountAPI } from './account/account.api.router';
 
 const app = express();
 const PORT = process.env.PORT;
@@ -16,27 +15,46 @@ export class ExpressAPI {
 		this.i18nMessage = new I18nMessage();
 	}
 
-	private configMiddlewared() {
-		app.use(express.json());
-		app.use(express.urlencoded({ extended: true }));
-		app.use(this.l18nMiddleware);
-	}
-
 	private l18nMiddleware = (request: Request, _: Response, next: () => void): void => {
-		l18nMiddleware(this.i18nMessage, request, next);
+		request.message = this.i18nMessage;
+		let lang = 'en';
+
+		if (request.headers['accept-language']) {
+			lang = request.headers['accept-language'];
+		} else if (request.query['lang']) {
+			lang = request.query['lang'] + '';
+		}
+
+		this.i18nMessage.setLocale(lang);
+
+		next();
+	};
+
+	private errorHandler = (err: any, req: Request, res: Response, next: () => void): void => {
+		if (err instanceof InvalidDataError) {
+			res.status(400).send(this.i18nMessage.msg(err.key));
+			return;
+		}
+
+		res.status(500).send(this.i18nMessage.msg('internal_error'));
+		next();
 	};
 
 	private configRouters() {
-		const account: Router = accountRouter(this.repositories.account, this.i18nMessage);
+		const account: Router = expressAccountAPI(this.repositories.account, this.i18nMessage);
 		app.use('/account', account);
 	}
 
 	start(): void {
 		console.log('starting express api');
 
-		this.configMiddlewared();
+		app.use(express.json());
+		app.use(express.urlencoded({ extended: true }));
+		app.use(this.l18nMiddleware);
+
 		this.configRouters();
-		app.use(errorHandler);
+
+		app.use(this.errorHandler);
 
 		app.listen(PORT, () => {
 			console.log('express server started at port: ' + PORT);
