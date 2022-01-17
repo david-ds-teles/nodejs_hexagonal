@@ -37,7 +37,7 @@ export class MySqlAccountRepository implements IAccountRepository {
 					console.error('failed to update account with error', err);
 					reject(err);
 				} else {
-					console.log('account updated');
+					console.log('account updated', result);
 					resolve();
 				}
 			});
