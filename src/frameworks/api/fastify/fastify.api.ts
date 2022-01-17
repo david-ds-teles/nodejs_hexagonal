@@ -1,6 +1,6 @@
 import fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import { IApi } from '../../../commons/api';
-import { InvalidDataError } from '../../../commons/errors';
+import { InvalidDataError, NotFoundError } from '../../../commons/errors';
 import { Repositories } from '../../../commons/idb.driver';
 import { IMessage } from '../../../commons/imessage';
 import { I18nMessage } from '../../i18n.message';
@@ -34,6 +34,11 @@ export class FastifyAPI implements IApi {
 	private errorHandler = (err: any, req: FastifyRequest, res: FastifyReply) => {
 		if (err instanceof InvalidDataError) {
 			res.status(400).send(this.i18n.msg(err.key));
+			return;
+		}
+
+		if (err instanceof NotFoundError) {
+			res.status(404).send(this.i18n.msg(err.key));
 			return;
 		}
 

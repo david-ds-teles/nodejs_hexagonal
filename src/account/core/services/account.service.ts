@@ -19,13 +19,28 @@ export class AccountService implements IAccountService {
 		}
 	}
 
-	update(account: Account): void {
-		console.log(account);
-		throw new Error('Method not implemented.');
+	async update(account: Account): Promise<void> {
+		console.log('AccountService.update', account);
+
+		try {
+			account.checkEmailProvider();
+			await this.repository.update(account);
+		} catch (err) {
+			console.error('error trying to update an account', err);
+			throw err;
+		}
 	}
 
-	fetchByEmail(email: string): Account {
-		console.log(email);
-		throw new Error('Method not implemented.');
+	async fetchByEmail(email: string): Promise<Account> {
+		console.log('AccountService.fetchByEmail', email);
+
+		try {
+			const account: Account = await this.repository.fetchByEmail(email);
+			return account;
+
+		} catch (err) {
+			console.error('error trying to fetch an account by email', err);
+			throw err;
+		}
 	}
 }

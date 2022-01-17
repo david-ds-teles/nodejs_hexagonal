@@ -9,6 +9,10 @@ export class Account {
 		this._id = id;
 	}
 
+	idIsValid(){
+		if(this._id == null) throw new InvalidDataError('invalid_id', '_id provider is invalid');
+	}
+
 	checkEmailProvider() {
 		const emailReg = new RegExp(/^.+@.+\.com/g);
 		const forbidenProviderReg = new RegExp(/^.+@foo\.com/g);

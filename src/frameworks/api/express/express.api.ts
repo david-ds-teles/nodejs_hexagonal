@@ -1,6 +1,6 @@
 import express, { Request, Response, Router } from 'express';
 import { IApi } from '../../../commons/api';
-import { InvalidDataError } from '../../../commons/errors';
+import { InvalidDataError, NotFoundError } from '../../../commons/errors';
 import { Repositories } from '../../../commons/idb.driver';
 import { IMessage } from '../../../commons/imessage';
 import { I18nMessage } from '../../i18n.message';
@@ -34,6 +34,11 @@ export class ExpressAPI implements IApi {
 	private errorHandler = (err: any, req: Request, res: Response, next: () => void): void => {
 		if (err instanceof InvalidDataError) {
 			res.status(400).send(this.i18nMessage.msg(err.key));
+			return;
+		}
+
+		if (err instanceof NotFoundError) {
+			res.status(404).send(this.i18nMessage.msg(err.key));
 			return;
 		}
 

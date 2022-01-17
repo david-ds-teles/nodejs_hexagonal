@@ -6,5 +6,7 @@
 	"account_create_data_param_not_found": "o parâmetro \"data\" não informado. Você precisa informar o parametro no formato json válido.",
 	"account_creation_failed": "falha na criação da conta",
 	"account_email_provider_not_supported": "o email informado não é suportado pela plataforma",
-	"invalid_email": "o email informado é inválido"
+	"not_found": "recurso não encontrado",
+	"invalid_email": "o email informado é inválido",
+	"invalid_id": "o _id informado é inválido"
 }
