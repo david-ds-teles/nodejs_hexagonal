@@ -5,6 +5,8 @@ apps:
     watch: false
     env_prd:
       ENV: 'prd'
+      API: "express"
+      DB: "mongodb"
       PORT: 5001
       DB_CONN: 'mongodb://hexdev:hexdev@localhost:27017'
       DB_NAME: 'node_hex'

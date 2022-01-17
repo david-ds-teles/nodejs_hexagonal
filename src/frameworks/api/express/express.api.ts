@@ -1,4 +1,5 @@
 import express, { Request, Response, Router } from 'express';
+import { IApi } from '../../../commons/api';
 import { InvalidDataError } from '../../../commons/errors';
 import { Repositories } from '../../../commons/idb.driver';
 import { IMessage } from '../../../commons/imessage';
@@ -8,7 +9,7 @@ import { expressAccountAPI } from './account/account.api.router';
 const app = express();
 const PORT = process.env.PORT;
 
-export class ExpressAPI {
+export class ExpressAPI implements IApi {
 	private i18nMessage: IMessage;
 
 	constructor(readonly repositories: Repositories) {
