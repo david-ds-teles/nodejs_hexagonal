@@ -8,3 +8,13 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: hexdev
     ports:
       - '27017:27017'
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: node_hex
+      MYSQL_ROOT_PASSWORD: hexdev
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./scripts/db:/docker-entrypoint-initdb.d/
