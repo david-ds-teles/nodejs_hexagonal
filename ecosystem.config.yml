@@ -6,5 +6,9 @@ apps:
     env_prd:
       ENV: 'prd'
       PORT: 5001
-      DB_NAME: 'node_hex'
       DB_CONN: 'mongodb://hexdev:hexdev@localhost:27017'
+      DB_NAME: 'node_hex'
+      MYSQL_USER: 'root'
+      MYSQL_PASS: 'hexdev'
+      MYSQL_PORT: 3306
+      MYSQL_CONN: 'localhost'
