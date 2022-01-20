@@ -28,8 +28,8 @@ class FastifyAccountAPI {
 	fetchByEmail = async (req: FastifyRequest, res: FastifyReply) => {
 		console.log('starting fetchByEmail api', req.params);
 
-		const data:any = req.params;
-		const account:Account = await this.accountService.fetchByEmail(data.email);
+		const data: any = req.params;
+		const account: Account = await this.accountService.fetchByEmail(data.email);
 		res.status(200).send(account);
 	};
 }

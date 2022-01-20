@@ -10,7 +10,7 @@ export class MongoDB implements IDBDriver {
 		return this.repo;
 	}
 
-	async connect() {
+	async connect(): Promise<void> {
 		console.log('starting mongodb connection...');
 
 		try {
@@ -24,15 +24,17 @@ export class MongoDB implements IDBDriver {
 			};
 
 			console.log('mongodb connection successfully initiated');
+			return Promise.resolve();
 		} catch (err) {
 			console.error('failed to connect to the db with error', err);
 			process.exit(1);
 		}
 	}
 
-	async close() {
+	async close(): Promise<void> {
 		try {
 			await this.client.close();
+			return Promise.resolve();
 		} catch (err) {
 			console.error('failed to close db connection with error', err);
 			process.exit(1);

@@ -10,7 +10,7 @@ export class MySql implements IDBDriver {
 		return this.repo;
 	}
 
-	async connect() {
+	async connect(): Promise<void> {
 		console.log('starting mysql connection...');
 
 		try {
@@ -29,17 +29,19 @@ export class MySql implements IDBDriver {
 			};
 
 			console.log('mysql connection successfully initiated');
+			return Promise.resolve();
 		} catch (err) {
 			console.error('failed to connect to the db with error', err);
 			process.exit(1);
 		}
 	}
 
-	async close() {
+	async close(): Promise<void> {
 		try {
 			if (this.db) this.db.end();
 
 			console.log('closing');
+			return Promise.resolve();
 		} catch (err) {
 			console.error('failed to close db connection with error', err);
 			process.exit(1);

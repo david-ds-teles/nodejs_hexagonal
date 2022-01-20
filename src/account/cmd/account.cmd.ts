@@ -4,7 +4,7 @@ import { IAccountService } from '../core/services/iaccount.service';
 import { Account } from '../core/entities/account';
 
 type exec = {
-	(args: string[]): void;
+	(args: string[]): Promise<void>;
 };
 
 export class AccountCmd implements ICommand {
@@ -14,21 +14,21 @@ export class AccountCmd implements ICommand {
 		this.cmds.set('create-account', this.create);
 	}
 
-	exec(args: string[]): void {
+	async exec(args: string[]) {
 		console.log('execute commands', args);
 
 		const command = args[1];
 		if (!this.cmds.has(command)) {
 			const msg = this.message.msg('command_provided_for_args_not_found', { cmd: command, arg: args[0] });
-			throw Error(msg);
+			return Promise.reject(new Error(msg));
 		}
 
 		const execFunc = this.cmds.get(command);
 		if (execFunc != null) {
-			execFunc(args);
+			return await execFunc(args);
 		} else {
 			const msg = this.message.msg('command_provided_for_args_not_found', { cmd: command, arg: args[0] });
-			throw Error(msg);
+			return Promise.reject(new Error(msg));
 		}
 	}
 
@@ -38,7 +38,7 @@ export class AccountCmd implements ICommand {
 
 		if (data == null) {
 			const msg = this.message.msg('account_create_data_param_not_found');
-			throw Error(msg);
+			return Promise.reject(new Error(msg));
 		}
 
 		let accountJSON;
@@ -48,16 +48,16 @@ export class AccountCmd implements ICommand {
 			console.log(accountJSON);
 		} catch (err) {
 			console.error('failed to parse the json data', err);
-			process.exit(1);
+			return Promise.reject(err);
 		}
 
 		try {
 			const accountCreated = await this.accountService.create(new Account(accountJSON.email));
 			console.log('account created', accountCreated);
-			process.exit(0);
+			return Promise.resolve();
 		} catch (err) {
 			console.error('failed to create user with error', err);
-			process.exit(1);
+			return Promise.reject(err);
 		}
 	};
 }

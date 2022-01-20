@@ -37,13 +37,12 @@ class AccountAPI {
 		console.log('starting fetchByEmail api', req.params);
 
 		try {
-			const account:Account = await this.accountService.fetchByEmail(req.params.email);
+			const account: Account = await this.accountService.fetchByEmail(req.params.email);
 			res.status(200).send(account);
 		} catch (err) {
 			next(err);
 		}
 	};
-
 }
 
 export const expressAccountAPI = (accountRepository: IAccountRepository, message: IMessage): Router => {

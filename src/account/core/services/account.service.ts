@@ -35,9 +35,9 @@ export class AccountService implements IAccountService {
 		console.log('AccountService.fetchByEmail', email);
 
 		try {
+			new Account(email).checkEmailProvider();
 			const account: Account = await this.repository.fetchByEmail(email);
 			return account;
-
 		} catch (err) {
 			console.error('error trying to fetch an account by email', err);
 			throw err;

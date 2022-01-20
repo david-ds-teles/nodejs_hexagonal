@@ -1,3 +1,3 @@
 export interface ICommand {
-	exec(args: string[]): void;
+	exec(args: string[]): Promise<void>;
 }

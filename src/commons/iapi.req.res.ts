@@ -3,7 +3,7 @@ import { IMessage } from './imessage';
 export interface Request<T> {
 	message: IMessage;
 	body: T;
-	params: any
+	params: any;
 }
 
 export interface Response<T> {
