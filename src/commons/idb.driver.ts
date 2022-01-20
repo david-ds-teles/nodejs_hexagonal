@@ -1,8 +1,8 @@
 import { IAccountRepository } from '../account/repository/iaccount.repository';
 
 export interface IDBDriver {
-	connect(): void;
-	close(): void;
+	connect(): Promise<void>;
+	close(): Promise<void>;
 	get repositories(): Repositories;
 }
 
